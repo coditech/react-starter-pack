@@ -1,0 +1,3 @@
+- [./server](./server)/ things related to the server
+- [./client](./client)/ things related to the client
+- [./Components](./Components)/ things related to both client and server. Most React components live there, since they can be rendered on both ends

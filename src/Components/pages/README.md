@@ -1,0 +1,3 @@
+- [./Home.js](./Home.js) called on the `/` route
+- [./About.js](./About.js) called on the `/about` route
+- [./NotFound.js](./NotFound.js)  called for 404 pages. If rendered on the server, also sets a `status 404`

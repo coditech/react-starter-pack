@@ -1,0 +1,4 @@
+- [./App.js](./App.js) The entry point of the application. This is where the main `state` lives
+- [./Main.js](./Main.js) The main HTML structure of the application. This is where the menu lives, and where pages get switched
+- [./Main.css](./Main.css) The main CSS of the application
+- [./pages](./pages)/ This folder contains all the pages used

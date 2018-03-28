@@ -1,0 +1,4 @@
+- [./index.js](./index.js) just the entry point to the server
+- [./renderPage](./renderPage) a helper function to render an HTML page and insert something in the body
+- [./express](./express) this just opens a server on the port 3000, and sets up React to render any page as HTML   
+- [./socket](./socket) takes care of opening and maintaining socket connections

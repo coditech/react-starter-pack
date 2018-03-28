@@ -1,0 +1,2 @@
+- [./index.js](./index.js) just the entry point of the directory 
+- [./client.js](./client.js) the client logic. All it does is mount the App in a DOM container called `root` 
