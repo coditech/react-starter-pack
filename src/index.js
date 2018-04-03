@@ -1,31 +1,20 @@
-import http from 'http';
-import { express, socket } from './server';
+import createSocketServer from './server/createSocketServer';
+import createExpressApp from './server/createExpressApp';
+import { start } from './server/server'
 
-const server = http.createServer(express);
+const port = process.env.PORT || 3000
 
-let currentApp = express;
-//let closeSocketServer = 
-socket(server)
-
-server.listen(process.env.PORT || 3000, (error) => {
-  if (error) {
-    console.log(error)
-  }
-  
-  console.log('🚀 started')
-});
+start(createExpressApp, createSocketServer, port)
 
 if (module.hot) {
   console.log('✅  Server-side HMR Enabled!');
 
-  module.hot.accept('./server', () => {
+  module.hot.accept([ './server/server', './server/createExpressApp', './server/createSocketServer' ], () => {
     console.log('🔁  HMR Reloading `./server`...');
-    server.removeListener('request', currentApp);
-    //closeSocketServer()
-    const { express } = require('./server');
-    server.on('request', express);
-    //closeSocketServer = 
-    socket(server)
-    currentApp = express;
+    const _createExpressApp = require('./server/createExpressApp').default
+    const _createSocketServer = require('./server/createSocketServer').default
+    const { start:_start } = require('./server/server')
+    _start(_createExpressApp, _createSocketServer, port)
+
   });
 }

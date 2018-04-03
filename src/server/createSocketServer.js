@@ -1,6 +1,6 @@
 import SocketIo from 'socket.io'
 
-export default function createSocket(server){
+export default function createSocketServer(server){
 
   let userId = 0
 
@@ -29,9 +29,13 @@ export default function createSocket(server){
         io.emit('message', { id, text })
     })
 
+    socket.on('tata',()=>{
+      console.log('seridously')
+    })
+
   });
 
-  const close = () => io.close()
+  const close = (cb) => io.close(cb)
 
   return close
 }
