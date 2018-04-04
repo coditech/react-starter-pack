@@ -16,7 +16,6 @@ const createExpressApp = () => {
   
   app.get('/*', (req, res) => {
   
-    console.log('req')
     const context = {}; // this is used by react router to hold put some information that we can use later
       
     const body = renderToString(
