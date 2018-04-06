@@ -13,6 +13,9 @@ It uses:
     - [passport-github2](https://npmjs.org/package/passport-github2) for logging in through github
     - [passport-local](https://npmjs.org/package/passport-local) for logging in through email and password
     - [socket-io](https://npmjs.org/package/socket-io) for real time communication
+    - [helmet](https://github.com/helmetjs/helmet) (not to confuse with `react-helmet` below!) to protect the app
+    - [hpp](https://github.com/analog-nico/hpp) to protect against parameters pollution
+    - [compression](https://github.com/expressjs/compression) to compress server responses
   - database stuff:
     - [sqlite3](https://npmjs.org/package/sqlite3) for storing data
     - [knex](https://npmjs.org/package/knex) for easily communicating with sqlite

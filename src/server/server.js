@@ -15,6 +15,8 @@ import http from 'http';
 import https from 'https';
 import fs from 'fs';
 
+const log = console.log.bind(console,'['+__filename.split('/').slice(-2).join('/')+']:')
+
 // these are `let` rather than `const` because they change
 // every time the app is restarted (every time you make a change to files)
 let httpServer, httpsServer, currentApp, closeSocketServer
@@ -31,7 +33,7 @@ const https_options = {
 // start listening
 const callback = (port) => ( error ) => {
   if (error) { throw error }
-  console.log(`🚀 started, listening on ${port}`)
+  log(`🚀started, listening on ${port}`)
 }
 
 // this is the function that runs when the HMR watcher picks up a change in a file
@@ -39,7 +41,6 @@ const callback = (port) => ( error ) => {
 export const stop = (httpServer, httpsServer) => new Promise((resolve, reject)=>{
 
   if(!httpServer){ // if there's no server, there's nothing to stop, exit early
-    console.log('first run!')
     return resolve()
   }
 
@@ -54,7 +55,7 @@ export const stop = (httpServer, httpsServer) => new Promise((resolve, reject)=>
   if(closeSocketServer){
     closeSocketServer((err)=>{
       if(err){ return reject(err)}
-      resolve()
+      return resolve()
     })
   }
   else{
@@ -62,19 +63,22 @@ export const stop = (httpServer, httpsServer) => new Promise((resolve, reject)=>
   }
 }).then(() => {
   if(httpServer){
+    log('stopping http server...')
     return new Promise((resolve,reject)=>httpServer.close((err)=>resolve(true)))
   }
   return true
 }).then(() => {
   if(httpsServer){
+    log('stopping https server...')
     return new Promise((resolve,reject)=>httpsServer.close((err)=>resolve(true)))
   }
   return true
 })
 
 export const start = ( createExpressApp, createSocketServer, port, https_port ) => 
-  new Promise((resolve,reject)=>
-    stop(httpServer,httpServer).then(()=>{
+  new Promise((resolve,reject)=>{
+    log(httpServer ? 'restarting...' : 'starting...')
+    return stop(httpServer,httpsServer).then(()=>{
 
       httpServer = http.createServer()
       httpsServer = https.createServer( https_options )
@@ -89,6 +93,6 @@ export const start = ( createExpressApp, createSocketServer, port, https_port ) 
       httpServer.listen( port, callback(port) );
       httpsServer.listen( https_port, callback(https_port) );
     })
-  )
+  })
 
 export default start
