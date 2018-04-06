@@ -1,16 +1,16 @@
 import React from 'react';
-import Helmet from 'react-helmet';
-import { style } from 'typestyle';
+import Helmet from 'react-helmet'
+import { style } from 'typestyle'
+import Default from '../Wrappers/Default'
 
 const mainClassName = style({ background:'green' })
 
 const Home = () => (
-  <div className={mainClassName}>
+  <Default className={mainClassName}>
     <Helmet>
-      <title>Home</title>1
-      <body className="page-about"/>
+      <title>Home</title>
     </Helmet>
     <h1 className="title">About</h1>
-  </div>
+  </Default>
 )
 export default Home;

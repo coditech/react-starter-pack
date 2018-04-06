@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
+import Default from '../Wrappers/Default'
 
 const Message = ({ id, text, me }) => (
   <div>
@@ -41,13 +42,13 @@ class Chat extends Component {
   render() {
     const { messages, id } = this.state
     return (
-      <div className="Home">
+      <Default className="chat">
         <h1>{id}</h1>
         { messages.map( message => <Message {...message}/>) }
         <form onSubmit={this.onSubmit}>
           <input name="userMessage"/>
         </form>
-      </div>
+      </Default>
     );
   }
 }

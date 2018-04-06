@@ -1,15 +1,15 @@
 import React from 'react';
 import Helmet from "react-helmet";
 import Route from 'react-router-dom/Route';
+import Default from '../Wrappers/Default'
 
 export const NotFound = () =>
-  <div>
+  <Default className='not-found'>
     <Helmet>
       <title>404, page not found</title>
-      <body className="page-not-found"/>
     </Helmet>
     <h1 className="title">Not found</h1>
-  </div>
+  </Default>
 
 export const setStatusIfServer = ( staticContext, props ) => {
 
