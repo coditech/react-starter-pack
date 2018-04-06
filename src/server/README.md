@@ -1,4 +1,5 @@
-- [./index.js](./index.js) just the entry point to the server
-- [./renderPage](./renderPage) a helper function to render an HTML page and insert something in the body
-- [./express](./express) this just opens a server on the port 3000, and sets up React to render any page as HTML   
-- [./socket](./socket) takes care of opening and maintaining socket connections
+- [./certificates](./certificates) contains all the files needed to create an https server
+- ['./routes'](./routes)/ contains the different request handlers
+- [./createExpressApp.js](./createExpressApp.js) this sets up an express request handler
+- [./createSocketServer.js](./createSocketServer.js) takes care of opening and maintaining socket connections
+- [./server.js](./server.js) ties the express app, the socket handler, and sets them on an http and an https servers 
