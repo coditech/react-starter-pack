@@ -14,6 +14,7 @@ import bodyParser from 'body-parser' // takes care of POST requests
 import compression from 'compression' // compression middleware. Compresses responses before sending them
 import hpp from 'hpp' // protects against parameters pollution, see https://github.com/analog-nico/hpp
 import renderReact from './routes/renderReact' // our static React renderer
+import api from './routes/api/api' // JSON api
 
 // this function creates an express request handler and sets it
 // usually, wrapping the creation of the express request handler is not necessary
@@ -41,6 +42,8 @@ const createExpressApp = () => {
   // sets the express app to serve static files from the public directory
   app.use(express.static(process.env.RAZZLE_PUBLIC_DIR))
   
+  app.use('/api',api)
+
   // makes the app answer *any* request. So, if you would want to add routes, it has to be before
   // this line
   app.get('/*', renderReact);
