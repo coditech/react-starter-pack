@@ -22,6 +22,14 @@ knex.migrate.latest()
   .then(() => console.log('[ db: News ] ready'))
   .catch( err => {throw err})
 
-export const get_page = (num) => knex.select('*').from('posts').offset((num-1)*items_per_page).limit(items_per_page)
+const throwErrorIfNoItems = items=>{
+  if(!items.length){
+    throw new Error(`no items found`)
+  }
+  return items
+}
 
-export const get_news_item = (slug) => knex.select('*').from('posts').where({slug:'slug'}).limit(1)
+export const page = ({num}) => 
+  knex.select('*').from('posts').offset((num-1)*items_per_page).limit(items_per_page).then(throwErrorIfNoItems)
+
+export const item = ({slug}) => knex.select('*').from('posts').where({slug}).limit(1).then(throwErrorIfNoItems)
