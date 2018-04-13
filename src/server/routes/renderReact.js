@@ -8,12 +8,12 @@
  *
  */
 import React from 'react' // allows <JSX/>
-import { StaticRouter as Router, Switch, Route } from 'react-router-dom' // for routing the URLs to the right components
+import { StaticRouter as Router, Route } from 'react-router-dom' // for routing the URLs to the right components
 import { renderToString } from 'react-dom/server' // for rendering the react app as pure HTML
 import Helmet from 'react-helmet' // for manipulating things in <head>...</head>
 import { getStyles } from "typestyle"; // a styles helper
 import ReactApp from '../../Components/App' // The entry point of our application
-import {Api} from './Api'
+
 // A very simple React component that you can use to render a full
 // page. This is intended to be used on the server only, of course.
 export const Document = ({ js, css, body, is_prod, helmet, rootComponentId }) => (
@@ -70,10 +70,7 @@ export default ( req, res ) => {
 
   const body = renderToString(
     <Router context={context} location={req.url}>
-      <Switch>
-        <Route path='/api' component={Api}/>
-        <Route path='/' component={ReactApp}/>
-      </Switch>
+      <Route path='/' component={ReactApp}/>
     </Router>
   );
   // the "body" variable now hold the React app rendered as a string
