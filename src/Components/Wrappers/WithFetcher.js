@@ -1,15 +1,12 @@
 import React from 'react'
 
 export class Fetcher extends React.Component{
-  runDataSourceFunction = () => {
-    return this.constructor.dataSource(this.props);
-  }
+
   getUrl = () => {
-    let url = this.constructor.dataSource
     if (typeof this.constructor.dataSource === 'function') {
-      url = this.runDataSourceFunction();
+      return this.constructor.dataSource(this.props);
     }
-    return url;
+    return this.constructor.dataSource
   }
   
   state = {
@@ -24,8 +21,8 @@ export class Fetcher extends React.Component{
   prevUrl = this.getUrl()
 
   componentDidMount = () => {
-    this._isMounted = true
     this.fetchData(this.getUrl())
+    this._isMounted = true
   }
 
   componentDidUpdate() {
@@ -55,28 +52,29 @@ export class Fetcher extends React.Component{
 
   fetchData = url => {
 
+    const { setStateError, setStateLoading, setStateNone, setStateSuccess } = this
+
     if (!url){ 
-      return this.setStateNone() 
+      return setStateNone()
     }
     
-    const init = { credentials: 'same-origin', ...this.props.dataOptions }
+    const init = { credentials: 'same-origin', ...this.constructor.dataOptions }
 
-    this.setStateLoading( () => 
+    setStateLoading( () => 
       fetch(`/api${url}`, init)
-        .then( response => {
-          const { status:httpStatus, statusText } = response
-          return response.json().then( data => {
-              if ( (httpStatus >= 400 && httpStatus <= 599) || data.error ) {
-                if(data.error){
-                  throw new Error(data.error)  
-                }
-                throw new Error(statusText)
+        .then( response => response.json()
+            .then( data => {
+              if(data.error){
+                throw new Error(data.error)
+              }
+              if (response.status >= 400 && response.status <= 599) {
+                throw new Error(response.statusText)
               }
               return data
           })
-        } )
-        .then(this.setStateSuccess)
-        .catch(this.setStateError)
+        )
+        .then(setStateSuccess)
+        .catch(setStateError)
     )
   };
 
@@ -85,7 +83,7 @@ export class Fetcher extends React.Component{
       return this.prevUrl !== this.constructor.dataSource
     }
 
-    const currentUrl = this.runDataSourceFunction()
+    const currentUrl = this.constructor.dataSource(this.props);
 
     if (this.prevUrl !== currentUrl) {
       this.prevUrl = currentUrl;
@@ -100,14 +98,16 @@ export class Fetcher extends React.Component{
     }
   }
 
-  prepareProps(process){
-    const props = process({ ...this.props, ...this.state })
-    return props
+  prepareProps(mapStateToProps){
+    if(mapStateToProps){
+      return mapStateToProps(this.state,this.props)
+    }
+    return { ...this.state, ...this.props }
   }
 
 } 
 
-export const WithFetcher = (dataSource,process=(x)=>x) => ( Component, compName ) => {
+export const withFetcher = ( dataSource, mapStateToProps, dataOptions ) => ( Component, compName ) => {
 
   const displayName = ( compName || Component.displayName || '' ) + 'WithFetcher'
 
@@ -115,32 +115,15 @@ export const WithFetcher = (dataSource,process=(x)=>x) => ( Component, compName 
     Component.displayName = compName
   }
 
-  return class WithFetcherClass extends Fetcher{
-    static displayName = displayName
+  class WithFetcherClass extends Fetcher{
+    
+    static displayName = displayName  
+    static dataOptions = dataOptions
     static dataSource = dataSource
+    
     render() {
-      const props = this.prepareProps(process) 
       this.setStaticContext()
-      return <Component {...props} />;
-    }
-  }
-}
-
-export const WithLoader = (dataSource,process=(x)=>x) => ( Component, compName ) => {
-
-  const displayName = ( compName || Component.displayName || '' ) + 'WithLoader'
-
-  if(compName && !Component.displayName){
-    Component.displayName = compName
-  }
-
-  return class WithLoaderClass extends Fetcher{
-    static displayName = displayName
-    static dataSource = dataSource
-    render() {
       
-      this.setStaticContext()
-
       if( this.state.error ){
         return <div> { this.state.error.message } </div>
       }
@@ -148,12 +131,13 @@ export const WithLoader = (dataSource,process=(x)=>x) => ( Component, compName )
       if( this.state.loading ){
         return <div>loading { this.prevUrl } </div>
       }
-      
-      const props = this.prepareProps(process) 
-    
+
+      const props = this.prepareProps(mapStateToProps) 
       return <Component {...props} />;
     }
   }
+
+  return WithFetcherClass
 }
 
-export default WithFetcher
+export default withFetcher
