@@ -42,7 +42,7 @@ class Chat extends Component {
   render() {
     const { messages, id } = this.state
     return (
-      <Default className="chat">
+      <Default title="Chat">
         <h1>{id}</h1>
         { messages.map( message => <Message {...message}/>) }
         <form onSubmit={this.onSubmit}>

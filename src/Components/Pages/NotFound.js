@@ -1,13 +1,9 @@
 import React from 'react';
-import Helmet from "react-helmet";
 import Default from '../Wrappers/Default'
 import { WithStatusNotFound } from '../Wrappers/WithStatus'
 
 export const NotFound = () =>
-  <Default className='not-found'>
-    <Helmet>
-      <title>404, page not found</title>
-    </Helmet>
+  <Default title='404, Page Not Found' className='not-found'>
     <h1 className="title">Not found</h1>
   </Default>
 
