@@ -1,0 +1,15 @@
+.news-add-form{
+  form{
+    max-width:200px;
+    input, textarea{
+      display:block;
+      width:100%;
+    }
+    textarea{
+      height:200px;
+    }
+    button{
+      clear:both;
+    }
+  }
+}

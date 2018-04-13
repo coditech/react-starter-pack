@@ -1,4 +1,5 @@
 import React from 'react'
+import './Toggler.scss'
 
 export class Toggler extends React.Component{
   constructor(props,context){
@@ -22,12 +23,12 @@ export class Toggler extends React.Component{
   }
   toggle = () => this.setState({isOpen:!this.state.isOpen}) 
   render(){
-    const { label, labelClose, children } = this.props
+    const { label, labelClose, children, className:givenClasses } = this.props
     const { isOpen, maxHeight } = this.state
     const text = (isOpen ? labelClose || label : label) || 'toggle'
     const height = isOpen ? maxHeight : 0
     const baseClassName = this.props.baseClassName || 'toggler'
-    const className = `${baseClassName} ${baseClassName}-`+(isOpen ? 'open':'close')
+    const className = [`${baseClassName}`,`${baseClassName}-`+(isOpen ? 'open':'close'),givenClasses].filter(Boolean).join(' ')
     const style = {overflow:'hidden', height}
     return (
       <div className={className}>

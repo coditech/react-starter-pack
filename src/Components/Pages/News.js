@@ -4,6 +4,7 @@ import { Switch, Route, Redirect, Link } from 'react-router-dom'
 import Default from '../Wrappers/Default'
 import { withFetcher } from '../Wrappers/WithFetcher'
 import { Toggler } from '../Wrappers/Toggler'
+import './News.scss'
 
 export const News = (props) =>{
   const url = extractUrl(props)
@@ -72,7 +73,7 @@ export class NewsAdd extends React.Component{
   }
   render(){
     return (
-      <Toggler>
+      <Toggler className='news-add-form'>
         { this.state.errors.length 
         ? <div>
             { this.state.errors.map(err=><div className="error" key={err}>{err}</div>) }
