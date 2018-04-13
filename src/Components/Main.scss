@@ -6,3 +6,21 @@ body {
   font-family: sans-serif;
   color: $primary-color;
 }
+
+form{
+  max-width:200px;
+  input, textarea{
+    display:block;
+    width:100%;
+  }
+  textarea{
+    height:200px;
+  }
+  button{
+    clear:both;
+  }
+}
+
+.toggler_togglee{
+  transition:all .3s ease-out;
+}
