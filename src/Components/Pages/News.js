@@ -7,7 +7,7 @@ import { Toggler } from '../Wrappers/Toggler'
 import './News.scss'
 
 export const News = (props) =>{
-  const url = extractUrl(props)
+  const url = props.match.url
   return (
     <Default className='news'>
       <Helmet>
@@ -34,9 +34,17 @@ export const NewsItemFull = ({ title, body, slug, url }) =>
     </article>
   </div>
 
-export const NewsItemMini = ({title, slug, url}) =>
+export const NewsItemMini = ({ title, body, slug, url }) =>
   <div>
-    <Link to={`${url}/item/${slug}`}>{title}</Link>
+    <article class="card">
+      <header>
+        <h3><Link to={`${url}/item/${slug}`}>{title}</Link></h3>
+      </header>
+      <footer>
+        <p>{body}</p>
+        <Link className='button secondary' to={`${url}/item/${slug}`}>read</Link>
+      </footer>
+    </article>
   </div>
 
 
@@ -46,7 +54,9 @@ export const NewsPage = ({ num, items, url }) => (
       <title>news | page {num} </title>
     </Helmet>
     <h2>page {num}</h2>
-    <div>{items.map(item=><NewsItemMini key={item.post_id} { ...item } url={url}/>)}</div>
+    <div className='flex two three-600 four-800'>
+      {items.map(item=><NewsItemMini key={item.post_id} { ...item } url={url}/>)}
+    </div>
     <NewsAdd/>
   </div>
 )

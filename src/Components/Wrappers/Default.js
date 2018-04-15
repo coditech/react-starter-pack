@@ -32,9 +32,7 @@ export const DefaultWrapper = ({ className, children, title, slug }) => {
         </div>
       </nav>
       <main className={(slug ? 'content content-'+slug : 'content')}>
-        <section className='flex five'>
-          { children }
-        </section>
+        { children }
       </main>
     </div>
   )

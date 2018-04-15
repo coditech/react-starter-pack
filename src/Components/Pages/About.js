@@ -1,12 +1,35 @@
 import React from 'react';
-import { style } from 'typestyle'
 import Default from '../Wrappers/Default'
 
-const mainClassName = style({ background:'green' })
+const TeamMember = ({ src, name }) => (
+  <div>
+    <article class="card">
+      <img alt={'a photo of '+name} src="/web/img/forest.jpg"/>
+      <footer>
+        <h3>{name}</h3>
+        <button>Like</button>
+      </footer>
+    </article>
+  </div>
+)
 
-const Home = () => (
-  <Default title='About' className={mainClassName}>
-    
+const About = () => (
+  <Default title='about'>
+    <article>
+      <h1>About</h1>
+      <p>Lorem Ipsum Dolores Amet</p>
+    </article>
+    <article>
+      <h2>Our Team</h2>
+      <section className="flex three five-800">
+          <TeamMember src='' name='Jad'/>
+          <TeamMember src='' name='Jad'/>
+          <TeamMember src='' name='Jad'/>
+          <TeamMember src='' name='Jad'/>
+          <TeamMember src='' name='Jad'/>
+          <TeamMember src='' name='Jad'/>
+      </section>
+    </article>
   </Default>
 )
-export default Home;
+export default About;

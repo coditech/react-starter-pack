@@ -3,9 +3,9 @@ import Default from '../Wrappers/Default'
 
 const Home = () => (
   <Default title='Home'>
-    <article className="full">
+    <article>
       <h1>Home</h1>
-      <p>sdasd</p>
+      <p>Lorem Ipsum</p>
     </article>
   </Default>
 )
