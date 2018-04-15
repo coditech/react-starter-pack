@@ -5782,6 +5782,10 @@ pg-connection-string@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/pg-connection-string/-/pg-connection-string-2.0.0.tgz#3eefe5997e06d94821e4d502e42b6a1c73f8df82"
 
+picnic@^6.5.0:
+  version "6.5.0"
+  resolved "https://registry.yarnpkg.com/picnic/-/picnic-6.5.0.tgz#1e6e5a2d028b4f30222e0cafe4cc24078969ad36"
+
 pify@^2.0.0, pify@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/pify/-/pify-2.3.0.tgz#ed141a6ac043a849ea588498e7dca8b15330e90c"
