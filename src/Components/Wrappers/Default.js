@@ -21,13 +21,14 @@ export const DefaultWrapper = ({ className, children, title, slug }) => {
           <img className="logo" alt={`logo for ${title}`} src="" />
           <span>My Site</span>
         </Link>
-        <input id="menu-button"  type="checkbox" class="show"/>
-        <label for="menu-button" class="burger pseudo button">≡</label>
+        <input id="menu-button"  type="checkbox" className="show"/>
+        <label htmlFor="menu-button" className="burger pseudo button">≡</label>
         <div className="menu">
           <Link className="pseudo button" to="/"> Home </Link>
           <Link className="pseudo button" to="/about"> About Us </Link>
           <Link className="pseudo button" to="/chat"> Chat </Link>
           <Link className="pseudo button" to="/news"> News </Link>
+          <Link className="pseudo button" to="/gallery"> Gallery </Link>
           <Link className="button" to="/news"> Login </Link>
         </div>
       </nav>
